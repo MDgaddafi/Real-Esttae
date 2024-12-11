@@ -3,10 +3,13 @@ import logo from "/logo.png";
 import { useContext, useState } from "react";
 import Login from "../../Login/Login";
 import AuthContext from "../../../Provider/AuthContext";
+import { GoHeartFill } from "react-icons/go";
+import useCart from "../../../hooks/useCart";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const navigate = useNavigate(); // Initialize navigate
 
   const handleLogout = async () => {
@@ -27,7 +30,12 @@ const Header = () => {
             <Link to="/all-properties">All Properties</Link>
           </li>
           <li>
-            <Link to="/all">All</Link>
+            <Link to='/dashboard/wishlist'>
+            <button className="text-pink-500 flex gap-2 text-2xl">
+            <GoHeartFill />
+              <div className="badge bg-pink-500 text-white">+{cart.length}</div>
+            </button>
+            </Link>
           </li>
         </>
       ) : (
@@ -42,7 +50,6 @@ const Header = () => {
       )}
     </>
   );
-  
 
   return (
     <div className="navbar sticky top-0 z-50 border border-white shadow-md lg:w-[80%] md:w-[90%] w-[95%] mx-auto bg-accent rounded-xl text-base-content lg:p-5 p-0">
@@ -71,10 +78,10 @@ const Header = () => {
             {header}
           </ul>
         </div>
-        <Link to="/">
+        <Link className="lg:w-1/4 md:w-1/3 w-1/2" to="/">
           <img
             src={logo}
-            className="lg:w-1/4 md:w-1/3 w-1/2 hover:cursor-pointer transform transition duration-500 hover:scale-110"
+            className="hover:cursor-pointer transform transition duration-500 hover:scale-110"
             alt="Real Estate"
           />
         </Link>

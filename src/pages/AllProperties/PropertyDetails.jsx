@@ -1,8 +1,54 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { GoHeartFill } from "react-icons/go";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCart from "../../hooks/useCart";
+
 
 const PropertyDetails = () => {
   // Use the loader data
   const property = useLoaderData();
+  const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [, refetch] = useCart()
+
+  const handleAddToCart = () =>{
+    if(user && user.email){
+      const cartItem = {
+        menuId: property._id,
+        email: user.email,
+        title: property.title,
+        location: property.location,
+        priceRange: property.priceRange,
+        image: property.image,
+        agent: property.agent.name,
+        agentimage: property.agent.image,
+        verificationStatus: property.verificationStatus
+
+
+      }
+      axiosSecure.post('/carts', cartItem)
+      .then(res => {
+        if(res.data.insertedId){
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: 'Successful added cart',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch()
+        }
+      })
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!"
+      });
+    }
+  }
 
   return (
     <div className="p-8 w-[85%] mx-auto">
@@ -19,24 +65,20 @@ const PropertyDetails = () => {
           <p className="text-lg">
             <strong>Location:</strong> {property.location}
           </p>
-          <p className="text-lg">
-            <strong>Agent Name:</strong> {property.agentName}
+          <p className="text-lg flex items-center gap-5">
+            <strong><img className="w-16 border-s-gray-500 border-4 rounded-full" src={property.agent.image} alt="" /></strong> {property.agent.name}
           </p>
           <p className="text-lg">
             <strong>Price Range:</strong> {property.priceRange}
           </p>
           <p className="text-lg">
-            <strong>Description:</strong> {property.description || "No description provided."}
+            <strong>Verify</strong> {property.verificationStatus || "No description provided."}
           </p>
+          <button onClick={handleAddToCart} className="btn mt-10 bg-primary md:text-lg border-none rounded-full hover:bg-black/40 lg:text-lg text-white px-10 ">Add list <span><GoHeartFill /></span></button>
         </div>
       </div>
       <div className="text-center mt-8">
-        <button
-          onClick={() => window.history.back()}
-          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
-        >
-          Go Back
-        </button>
+          <Link onClick={() => window.history.back()}><button className="w-36 max-sm:ml-28 transform transition duration-500 hover:scale-110 h-16 text-secondary font-black rounded-full hover:text-white duration-300 relative group"><span className="absolute w-12 group-hover:w-[88%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-primary group-hover:bg-primary group-hover:duration-500 z-0"></span><span className="font-extra-bold z-10 relative"><span>Go</span> Back</span></button></Link>
       </div>
     </div>
   );

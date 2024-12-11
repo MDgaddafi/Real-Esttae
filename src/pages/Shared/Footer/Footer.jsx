@@ -9,7 +9,7 @@ return (
 <div className="lg:w-[80%] md:w-[90%] w-[95%] mx-auto">
 <footer className="footer bg-accent rounded-xl text-base-content p-10">
   <aside>
-    <Link to="/"><img className="w-1/2 hover:cursor-pointer transform transition duration-500 hover:scale-110" src={logo} alt="Real Esttae" /></Link>
+    <Link className="w-1/2" to="/"><img className="hover:cursor-pointer transform transition duration-500 hover:scale-110" src={logo} alt="Real Esttae" /></Link>
     <p>
     Copyright © 2024 <br /> All right reserved by Real Esttae
     </p>

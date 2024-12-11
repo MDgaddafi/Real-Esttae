@@ -62,12 +62,7 @@ const Card = () => {
                 <p>{property.location}</p>
                 <p>Agent: {property.agentName}</p>
                 <p>Price: {property.priceRange}</p>
-                <Link
-                  to={`/details/${property.id}`}
-                  className="text-blue-500 hover:underline"
-                >
-                  View Details
-                </Link>
+                <Link to={`/details/${property._id}`}><button className="w-36 max-sm:ml-28 transform transition duration-500 hover:scale-110 h-16 text-secondary font-black rounded-full hover:text-white duration-300 relative group"><span className="absolute w-12 group-hover:w-[88%] duration-300 flex group-hover:justify-start rounded-full inset-2 bg-primary group-hover:bg-primary group-hover:duration-500 z-0"></span><span className="font-extra-bold z-10 relative"><span>View</span> Details</span></button></Link>
               </div>
             </div>
           ))}
