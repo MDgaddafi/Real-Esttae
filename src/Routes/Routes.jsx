@@ -9,6 +9,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import All from "../pages/AllProperties/All";
+import PropertyDetails from "../pages/AllProperties/PropertyDetails";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ export const router = createBrowserRouter([
         path: '/all',
         element: <PrivateRoute><All></All></PrivateRoute>
       },
+      {
+        path: "/details/:id",
+        element: <PropertyDetails />,
+        loader: ({params}) => fetch(`http://localhost:5001/properties/${params.id}`)
+      }
     ]
   },
 ]);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 
 const AllProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -13,10 +14,12 @@ const AllProperties = () => {
 
   return (
     <div className="p-8 w-[85%] mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center">All Verified Properties</h1>
+      <div className="-mt-48 mb-10">
+        <SectionTitle heading={"All properties "}></SectionTitle>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {properties.map((property) => (
-          <div key={property.id} className="border p-4 rounded shadow">
+          <div key={property._id} className="border p-4 rounded shadow">
             <img
               src={property.image}
               alt={property.title}
@@ -27,7 +30,7 @@ const AllProperties = () => {
             <p>Agent: {property.agentName}</p>
             <p>Price: {property.priceRange}</p>
             <Link
-              to={`/details/${property.id}`}
+              to={`/details/${property._id}`}
               className="text-blue-500 hover:underline"
             >
               View Details
