@@ -30,6 +30,12 @@ const Header = () => {
             <Link to="/all-properties">All Properties</Link>
           </li>
           <li>
+          <Link to="/contact">Contact Us</Link>
+          </li>
+          <li>
+          <Link to="/about">About</Link>
+          </li>
+          <li>
             <Link to='/dashboard/wishlist'>
             <button className="text-pink-500 flex gap-2 text-2xl">
             <GoHeartFill />
@@ -41,10 +47,10 @@ const Header = () => {
       ) : (
         <>
           <li>
-            <a>Submenu 1</a>
+          <Link to="/contact">Contact Us</Link>
           </li>
           <li>
-            <a>Submenu 2</a>
+          <Link to="/about">About</Link>
           </li>
         </>
       )}

@@ -7,6 +7,13 @@ import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../pages/AllProperties/PropertyDetails";
 import Dashboard from "../Layout/Dashboard";
 import Wishlist from "../pages/Dashboard/Wishlist/Wishlist";
+import MakeOfferPage from "../pages/Dashboard/Wishlist/MakeOfferPage";
+import BoughtProperties from "../pages/Dashboard/Wishlist/BoughtProperties";
+import MyReviewsPage from "../pages/Dashboard/Wishlist/MyReviewsPage";
+import ProfilePage from "../pages/Dashboard/Wishlist/ProfilePage";
+import ContactPage from "../pages/Dashboard/Wishlist/ContactPage";
+import AboutPage from "../pages/Dashboard/Wishlist/AboutPage";
+import Login from "../pages/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +23,18 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage></ContactPage>
+      },
+      {
+        path: "/about",
+        element: <AboutPage></AboutPage>
       },
       {
         path: "*",
@@ -43,10 +62,28 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
-    children: [{
-      path: 'wishlist',
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    children: [
+      {
+      path: '/dashboard/wishlist',
       element: <Wishlist></Wishlist>
-    }],
+    },
+      {
+      path: '/dashboard/carts/:id',
+      element: <MakeOfferPage></MakeOfferPage>,
+    },
+    {
+      path: "/dashboard/bought-properties",
+      element: <BoughtProperties />,
+    },
+    {
+      path: "/dashboard/reviews",
+      element: <MyReviewsPage />,
+    },
+    {
+      path: "/dashboard/profile",
+      element: <ProfilePage/>,
+    },
+  ],
   },
 ]);

@@ -3,14 +3,19 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import { TiLocation } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 
 
 const Wishlist = () => {
   const [cart, refetch] = useCart(); // Fetch wishlist data
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth(); // Get logged-in user info
+  const navigate = useNavigate();
+  const handleMakeOffer = (id) => {
+    navigate(`/dashboard/carts/${id}`);
+  };
+  
 
-  // Function to delete a property by ID
   const handleRemove = async (id) => {
     try {
       // Make a DELETE request to the server
@@ -93,7 +98,7 @@ const Wishlist = () => {
 
               {/* Buttons */}
               <div className="flex justify-between">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                <button onClick={() => handleMakeOffer(property.menuId)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                   Make an Offer
                 </button>
                 <button
